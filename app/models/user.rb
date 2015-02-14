@@ -5,4 +5,6 @@ class User < ActiveRecord::Base
           :confirmable, :omniauthable
   include DeviseTokenAuth::Concerns::User
   belongs_to :house
+  has_many :messages_users
+  has_many :messages, :through => :messages_users
 end

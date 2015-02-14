@@ -38,6 +38,9 @@ ActiveRecord::Schema.define(version: 20150214031500) do
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "messages_users", ["message_id"], name: "index_messages_users_on_message_id", using: :btree
+  add_index "messages_users", ["user_id"], name: "index_messages_users_on_user_id", using: :btree
+
   create_table "payments", force: :cascade do |t|
     t.integer  "receiver_id"
     t.integer  "payer_id"
