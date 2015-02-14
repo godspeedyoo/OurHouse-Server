@@ -11,6 +11,8 @@ gem "omniauth-google-oauth2"
 
 gem 'pg'
 
+gem 'debugger'
+
 gem 'dotenv-rails', :groups => [:development, :test]
 
 gem "eventmachine"
