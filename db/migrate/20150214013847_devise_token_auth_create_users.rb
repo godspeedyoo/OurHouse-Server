@@ -42,6 +42,9 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration
       ## Tokens
       t.text :tokens
 
+      ## Custom fields added for OurHome
+      t.integer :house_id
+
       t.timestamps
     end
 
