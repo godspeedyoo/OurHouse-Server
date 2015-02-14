@@ -8,4 +8,6 @@ class ApplicationController < ActionController::API
   include ActionController::RespondWith
   include ActionController::MimeResponds
   include ActionController::ImplicitRender
+
+  # helper: go through the tokens and find the user_id and match with the server
 end

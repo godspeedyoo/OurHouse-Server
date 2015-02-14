@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
 
-  resources :users do
-  resources :houses do
-    resources :payments
-    resources :messages
-  end
+  resources :user do
+    resources :house do
+      resources :payment
+      resources :message
+    end
 end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,28 +1,69 @@
-== README
+== Our House Server - API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Rails version 4.2.0 
 
-Things you may want to cover:
+***
+HOUSE
+***
 
-* Ruby version
+* create new house
+    'post' user/:id/house
+    - data structure
+    	- {name: "value"}
 
-* System dependencies
+* Show house
+    'get' user/:id/house/:house_id
+    - return data
+    	- 
 
-* Configuration
+* Invite housemate
+    There is button, if clicked, send email with unique code
+    custom route to generate unique code
+    - return data
+    	-
 
-* Database creation
+***
+MESSAGE/TASK
+***
 
-* Database initialization
+* Create new message/task
+    params[:type] // chores, task, notification
+    'post' user/:id/house/:house_id/message/:message_id
+    - return data
+    	-
 
-* How to run the test suite
+* Show message/task
+    'get' user/:id/house/:house_id/messages
+    - return data
+    	-
 
-* Services (job queues, cache servers, search engines, etc.)
+* Edit message/task
+    params[:status] status defaults to "unread" //status will be "read", "delete" <-- User has deleted it from their view
+    'put' user/:id/house/:house_id/message/:message_id
+    - return data
+    	-
 
-* Deployment instructions
+* Show Specific message
+    params[:type_id]
+    'get' user/:id/house/:house_id/messages
+    - return data
+    	-
 
-* ...
+***
+VENMO/PAYMENTS
+***
 
+* Create new payments
+    'post' user/:id/house/:house_id/payments
+    - return data
+    	-
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Show all payments
+    'get' user/:id/house/:house_id/payments
+    - return data
+    	-
+
+* Show individual payments
+    'get' user/:id/house/:house_id/payments/:payments_id
+    - return data
+    	-
