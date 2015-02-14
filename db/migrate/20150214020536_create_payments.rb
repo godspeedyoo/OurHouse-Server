@@ -6,7 +6,7 @@ class CreatePayments < ActiveRecord::Migration
       t.integer :amount
       t.string :description
       t.boolean :fufilled
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
