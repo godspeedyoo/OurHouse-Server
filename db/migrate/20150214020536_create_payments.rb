@@ -5,7 +5,7 @@ class CreatePayments < ActiveRecord::Migration
       t.integer :payer_id
       t.integer :amount
       t.string :description
-      t.boolean :fufilled
+      t.boolean :fulfilled
       t.timestamps null: false
     end
   end
