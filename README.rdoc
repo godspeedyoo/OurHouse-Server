@@ -1,20 +1,43 @@
 == Our House Server - API
 
-* Rails version 4.2.0 
+* Rails version 4.2.0
+
+***
+User
+***
+
+* Get all user
+    'get' /users
+    - data structure
+        - [
+            {
+            id: 1,
+            provider: "google_oauth2",
+            uid: "117888160479464920985",
+            name: "Charles Kim",
+            nickname: null,
+            image: "https://lh5.googleusercontent.com/-onTrY2f-UPc/AAAAAAAAAAI/AAAAAAAAADU/V72OQznS-go/photo.jpg?sz=50",
+            email: "ckim0706@gmail.com",
+            house_id: null,
+            created_at: "2015-02-15T00:10:53.081Z",
+            updated_at: "2015-02-15T00:17:41.816Z"
+            }
+          ]
 
 ***
 HOUSE
 ***
 
+
 * create new house
     'post' user/:id/house
     - data structure
-    	- {name: "value"}
+    	-
 
 * Show house
     'get' user/:id/house/:house_id
     - return data
-    	- 
+    	-
 
 * Invite housemate
     There is button, if clicked, send email with unique code
@@ -23,19 +46,74 @@ HOUSE
     	-
 
 ***
-MESSAGE/TASK
+MESSAGE
 ***
+
+* Show all message/task
+    'get' user/:user_id/houses/:house_id/messages
+    - return data
+        - [
+            {
+            id: 4,
+            user_id: 1,
+            house_id: 1,
+            message_type: null,
+            content: "hi",
+            created_at: "2015-02-15T02:59:46.105Z",
+            updated_at: "2015-02-15T02:59:46.105Z"
+            },
+            {
+            id: 5,
+            user_id: 1,
+            house_id: 1,
+            message_type: null,
+            content: "heyyy",
+            created_at: "2015-02-15T03:00:22.178Z",
+            updated_at: "2015-02-15T03:00:22.178Z"
+            }
+          ]
 
 * Create new message/task
     params[:type] // chores, task, notification
-    'post' user/:id/house/:house_id/message/:message_id
+    'post' /users/:user_id/houses/:house_id/messages
+    - expecting data in this format
+    	- {
+              message:
+                {
+                  user_id: integer,
+                  house_id: integer,
+                  message_type: string,
+                  content: text
+                }
+            }
     - return data
-    	-
+        - {
+            id: 4,
+            user_id: 1,
+            house_id: 1,
+            message_type: null,
+            content: "hi",
+            created_at: "2015-02-15T02:59:46.105Z",
+            updated_at: "2015-02-15T02:59:46.105Z"
+        }
+    - return data if it fails
+        - { message: 'Message not created' }, status: 403
+
 
 * Show message/task
     'get' user/:id/house/:house_id/messages
     - return data
-    	-
+    	- [
+            {
+            id: 5,
+            user_id: 1,
+            house_id: 1,
+            message_type: null,
+            content: "heyyy",
+            created_at: "2015-02-15T03:00:22.178Z",
+            updated_at: "2015-02-15T03:00:22.178Z"
+            }
+          ]
 
 * Edit message/task
     params[:status] status defaults to "unread" //status will be "read", "delete" <-- User has deleted it from their view

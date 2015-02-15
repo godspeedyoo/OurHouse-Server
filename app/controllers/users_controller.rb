@@ -1,30 +1,28 @@
-class UsersController < ApplicationController::API
-  include ActionController::MimeResponds
+class UsersController < ApplicationController
 
   def index
-    @user = User.all
-    respond_to do |format|
-      format.json { render json: @user }
-    end
-
+    users = User.all
+    render json: users
     # return render json: @user, status 200
     # status codes are important
     # write specific messages for errors
   end
 
   def show
-    @user = User.find(params[:id])
-    respond_to do |format|
-      format.json { render json: @user }
-    end
+    user = User.find(params[:id])
+    render json: user
   end
 
-  def edit
-    
+  def create
+
+  end
+
+  def update
+
   end
 
   def destroy
-    
+
   end
 
 end
