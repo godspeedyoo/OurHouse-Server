@@ -80,10 +80,8 @@ MESSAGE
     	- {
               message:
                 {
-                  user_id: integer,
-                  house_id: integer,
-                  message_type: string,
-                  content: text
+                  message_type: "chore",
+                  content: "do the dishes"
                 }
             }
     - return data

@@ -13,3 +13,4 @@ end
 
 # JSON data for creating a message
 
+# User.first.messages.create(message_type: "chore", content: "heyyyyy do the dishes")
