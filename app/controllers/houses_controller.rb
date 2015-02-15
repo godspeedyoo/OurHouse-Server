@@ -6,7 +6,7 @@ class HousesController < ApplicationController
   end
 
   def show
-    house = House.find(params[:id])
+    house = House.find_by(id: 1) #Change '1' to current_user.house_id in production
     render json: house
   end
 
@@ -14,7 +14,7 @@ class HousesController < ApplicationController
     house = House.new(name: params[:name])
 
     if house.save
-      current_user.update(house_id: house.id)
+      current_user.update(house_id: house.id) #will only work when auth/current user is working
       render json: house
     else
       render json: {message: 'House not created'}, status: 403
@@ -23,7 +23,7 @@ class HousesController < ApplicationController
 
   def update
     house = House.find(params[:id])
-    house.update(name: params[:name])
+    house.update(name: params[:name]) #might add other updates at some point
     render json: house
   end
 

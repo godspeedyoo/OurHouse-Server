@@ -1,12 +1,12 @@
 class PaymentsController < ApplicationController
 
   def index
-    payments = Payment.all #change to current user in production
+    payments = Payment.where(house_id: 1) #change '1' to current_user.house_id in production
     render json: payments
   end
 
   def show
-    payment = Payment.find(params[:id])
+    payment = Payment.find_by(id: params[:id], house_id: 1) ##change '1' to current_user.house_id in production
     render json: payment
   end
 
