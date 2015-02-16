@@ -1,6 +1,6 @@
 # USERS
-charles = User.create(name: "charles", password: "12341234", uid: 1234, provider: "google", house_id: 1)
-joe = User.create(name: "joseph", password: "12341234", uid: 2345, provider: "google", house_id: 1)
+charles = User.create(name: "charles", house_id: 1)
+joe = User.create(name: "joseph", house_id: 1)
 
 # HOUSES
 House.create(name: "devbootcamp")
