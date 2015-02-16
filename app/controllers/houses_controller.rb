@@ -10,9 +10,9 @@ class HousesController < ApplicationController #SecuredController
   end
 
   def create
-    house = House.new(params[:house])
+    house = House.new(house_params)
     if house.save
-      current_user.update(house_id: house.id)
+      User.find(params[:user_id]).update(house_id: house.id)
       render json: house
     else
       render json: {message: 'House not created'}, status: 403
@@ -29,4 +29,8 @@ class HousesController < ApplicationController #SecuredController
 
   end
 
+  private
+  def house_params
+    params.require(:house).permit(:name)
+  end
 end
