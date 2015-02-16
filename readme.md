@@ -169,8 +169,6 @@ Returns single message object<br>
 ```
 
 ## Payments
-**Post Payment**<br>
-It's complicated
 
 **get /users/:user_id/houses/:house_id/payments**<br>
 returns an array of all payments **for the current user**, sent or received
