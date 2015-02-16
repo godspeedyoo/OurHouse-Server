@@ -1,4 +1,4 @@
-class HousesController < ApplicationController
+class HousesController < SecuredController
 
   def index
     # houses = House.all

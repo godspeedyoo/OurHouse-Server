@@ -1,4 +1,4 @@
-class MessagesController < ApplicationController
+class MessagesController < SecuredController
 
   def index
     messages = Message.where(house_id: 1) #change to current user in production
