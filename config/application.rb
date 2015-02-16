@@ -5,6 +5,7 @@ require 'rails/all'
 require 'dotenv'
 Dotenv.load
 require "active_record/railtie"
+require_relative '../app/controllers/message_helper'
 Bundler.require(*Rails.groups)
 
 module OurHomeApi

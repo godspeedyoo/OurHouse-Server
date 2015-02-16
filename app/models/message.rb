@@ -4,6 +4,7 @@ class Message < ActiveRecord::Base
   belongs_to :house
   before_create :add_house_id
   after_save :notify_housemates
+  Message.includes(:messages_user)
 
   def add_house_id
     user = User.find(self.user_id)

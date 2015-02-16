@@ -1,4 +1,11 @@
 class MessagesController < ApplicationController #SecuredController
+  # include /users/:user_id/houses/:house_id/messagesMessagesViewsHelper
+  include MessagesViewsHelper
+
+  def index
+    messages = Message.where(user_id: params[:user_id])
+    render json: message_views(messages, User.find(params[:user_id]))
+  end
 
   def show
     render json: Message.find(params[:id])
