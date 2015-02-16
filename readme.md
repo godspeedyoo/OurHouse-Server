@@ -2,8 +2,8 @@
 
 **Rails version 4.2.0**
 
-## User
-### Get Users
+## Users
+
 **get /users**
 ```
     [{
@@ -27,28 +27,58 @@
     updated_at: "2015-02-16T03:05:00.303Z"
     }]
 ```
-   
 
-***
-HOUSE
-***
+**get /users/:id**
+```
+    {
+    id: 1,
+    name: "charles",
+    nickname: null,
+    image: null,
+    email: null,
+    house_id: 1,
+    created_at: "2015-02-16T03:05:00.300Z",
+    updated_at: "2015-02-16T03:05:00.300Z"
+    }
+```
 
+**post /users**
+returns created user, otherwise returns a 400 status + error message
+```
+    {
+    id: 2,
+    name: "charles",
+    nickname: null,
+    image: null,
+    email: null,
+    house_id: 1,
+    created_at: "2015-02-16T03:05:00.300Z",
+    updated_at: "2015-02-16T03:05:00.300Z"
+    }
+```
 
-* create new house
-    'post' users/:id/house
-    - data structure
-    	-
+## House
 
-* Show house
-    'get' users/:id/houses/:house_id
-    - return data
-    	-
+**post /users/:id/house**
+returns created house, otherwise returns a 400 status + error message
+```
+    {
+    id: 1,
+    name: "devbootcamp",
+    created_at: "2015-02-16T03:05:00.275Z",
+    updated_at: "2015-02-16T03:05:00.275Z"
+    }
+```
 
-* Invite housemate
-    There is button, if clicked, send email with unique code
-    custom route to generate unique code
-    - return data
-    	-
+**get /users/:id/house/:house_id**
+```
+    {
+    id: 1,
+    name: "devbootcamp",
+    created_at: "2015-02-16T03:05:00.275Z",
+    updated_at: "2015-02-16T03:05:00.275Z"
+    }
+```
 
 ***
 MESSAGE
