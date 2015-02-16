@@ -43,7 +43,8 @@
 ```
 
 **post /users** <br>
-returns created user, otherwise returns a 400 status + error message
+returns created user, otherwise returns a 400 status + error message <br>
+**This needs to be implimented on the client/server so when a user logs in on the client it finds or creates the user**
 ```
     {
     id: 2,
@@ -81,8 +82,7 @@ returns created house, otherwise returns a 400 status + error message
     updated_at: "2015-02-16T03:05:00.275Z"
     }
 ```
-
-## Message
+## Messages
 
 **post /users/:user_id/houses/:house_id/messages** <br>
 - Must include ```params[:message]``` with
@@ -100,6 +100,51 @@ Route returns the object it created, otherwise it returns a 403 with an error
     created_at: "2015-02-16T03:05:00.332Z",
     updated_at: "2015-02-16T03:05:00.332Z"
     }
+```
+
+**get /users/:user_id/houses/:house_id/messages**<br>
+this route returns all messages for a user, along with the message's view<br>
+i.e. <br>
+```message[0]``` is the message object <br>
+```message[0].content``` == ```"clean shit up"```<br>
+```message[0].view``` is the nested view object<br>
+```message[0].view.read``` == ```true```<br>
+**route response:**
+```
+    [{
+    id: 1,
+    user_id: 1,
+    house_id: 1,
+    content: "clean shit up",
+    created_at: "2015-02-16T03:05:00.332Z",
+    updated_at: "2015-02-16T03:05:00.332Z",
+    view: {
+        message_id: 1,
+        id: 1,
+        user_id: 1,
+        read: true,
+        removed: false,
+        created_at: "2015-02-16T03:05:00.356Z",
+        updated_at: "2015-02-16T03:05:00.371Z"
+        }
+    },
+    {
+    id: 2,
+    user_id: 1,
+    house_id: 1,
+    content: "cook food",
+    created_at: "2015-02-16T03:05:00.375Z",
+    updated_at: "2015-02-16T03:05:00.375Z",
+    view: {
+        message_id: 2,
+        id: 6,
+        user_id: 1,
+        read: true,
+        removed: false,
+        created_at: "2015-02-16T03:05:00.380Z",
+        updated_at: "2015-02-16T03:05:00.392Z"
+        }
+    }]
 ```
 
 ## Messages_Users
