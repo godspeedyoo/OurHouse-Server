@@ -1,23 +1,16 @@
 class PaymentsController < ApplicationController #SecuredController
 
   def index
-    payments = Payment.where(house_id: 1) #change '1' to current_user.house_id in production
+    payments = Payment.where("house_id = #{params[:house_id]} and payer_id = #{params[:user_id]} or receiver_id = #{params[:user_id]}")
     render json: payments
   end
 
   def show
-    payment = Payment.find_by(id: params[:id], house_id: 1) ##change '1' to current_user.house_id in production
-    render json: payment
+    render json: Payment.find(params[:id])
   end
 
   def create
-    payment = Payment.new(params[:payment])
-
-    if payment.save
-      render json: payment
-    else
-      render json: { payment: 'Payment not created' }, status: 403
-    end
+    #its complicated
   end
 
 end
