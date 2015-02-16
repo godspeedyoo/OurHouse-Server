@@ -42,7 +42,7 @@
     }
 ```
 
-**post /users**
+**post /users** <br>
 returns created user, otherwise returns a 400 status + error message
 ```
     {
@@ -59,7 +59,7 @@ returns created user, otherwise returns a 400 status + error message
 
 ## House
 
-**post /users/:id/house**
+**post /users/:id/houses** <br>
 returns created house, otherwise returns a 400 status + error message
 ```
     {
@@ -70,7 +70,7 @@ returns created house, otherwise returns a 400 status + error message
     }
 ```
 
-**get /users/:id/house/:house_id**
+**get /users/:id/houses/:house_id**
 ```
     {
     id: 1,
@@ -80,33 +80,25 @@ returns created house, otherwise returns a 400 status + error message
     }
 ```
 
-***
-MESSAGE
-***
+## Message
 
-* Show all message/task
-    'get' users/:user_id/houses/:house_id/messages
-    - return data
-        - [
-            {
-            id: 4,
-            user_id: 1,
-            house_id: 1,
-            message_type: null,
-            content: "hi",
-            created_at: "2015-02-15T02:59:46.105Z",
-            updated_at: "2015-02-15T02:59:46.105Z"
-            },
-            {
-            id: 5,
-            user_id: 1,
-            house_id: 1,
-            message_type: null,
-            content: "heyyy",
-            created_at: "2015-02-15T03:00:22.178Z",
-            updated_at: "2015-02-15T03:00:22.178Z"
-            }
-          ]
+**post /users/:user_id/houses/:house_id/messages** <br>
+- Must send params[:message] which include:
+  - ```"type" => "Notif"``` or
+  - ```"type" => "Task"``` or
+  - ```"type" => "Activity"```
+  - ```"content" => "Go out and by us beer!"```
+Method returns the object it created, otherwise it returns a 403 with an error
+```
+    {
+    id: 1,
+    user_id: 1,
+    house_id: 1,
+    content: "clean shit up",
+    created_at: "2015-02-16T03:05:00.332Z",
+    updated_at: "2015-02-16T03:05:00.332Z"
+    }
+```
 
 * Create new message/task
     params[:type] // chores, task, notification
