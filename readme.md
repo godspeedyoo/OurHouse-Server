@@ -60,6 +60,8 @@ returns created user, otherwise returns a 400 status + error message
 ## House
 
 **post /users/:id/houses** <br>
+- Must include ```params[:house]```
+  - ```"name" => 'DevBootCamp House'```
 returns created house, otherwise returns a 400 status + error message
 ```
     {
@@ -83,12 +85,12 @@ returns created house, otherwise returns a 400 status + error message
 ## Message
 
 **post /users/:user_id/houses/:house_id/messages** <br>
-- Must send params[:message] which include:
+- Must include ```params[:message]``` with
   - ```"type" => "Notif"``` or
   - ```"type" => "Task"``` or
-  - ```"type" => "Activity"```
+  - ```"type" => "Activity"``` and
   - ```"content" => "Go out and by us beer!"```
-Method returns the object it created, otherwise it returns a 403 with an error
+Route returns the object it created, otherwise it returns a 403 with an error
 ```
     {
     id: 1,
@@ -100,7 +102,8 @@ Method returns the object it created, otherwise it returns a 403 with an error
     }
 ```
 
-* Create new message/task
+## Messages_Users
+**/users/:user_id/houses/:house_id/messages_users
     params[:type] // chores, task, notification
     'post' /users/:user_id/houses/:house_id/messages
     - expecting data in this format
