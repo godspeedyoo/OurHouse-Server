@@ -1,4 +1,4 @@
-class PaymentsController < SecuredController
+class PaymentsController < ApplicationController #SecuredController
 
   def index
     payments = Payment.where(house_id: 1) #change '1' to current_user.house_id in production
