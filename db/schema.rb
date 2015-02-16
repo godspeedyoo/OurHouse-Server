@@ -24,10 +24,11 @@ ActiveRecord::Schema.define(version: 20150214031500) do
 
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "type"
+    t.integer  "house_id"
+    t.string   "message_type"
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "messages_users", force: :cascade do |t|
@@ -46,8 +47,9 @@ ActiveRecord::Schema.define(version: 20150214031500) do
     t.integer  "receiver_id"
     t.integer  "payer_id"
     t.integer  "amount"
+    t.integer  "house_id"
     t.string   "description"
-    t.boolean  "fufilled"
+    t.boolean  "fulfilled"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

@@ -1,8 +1,15 @@
 class Message < ActiveRecord::Base
   has_many :messages_users
-  has_many :users, :through => :messages_users
+  # has_many :users, :through => :messages_users
   belongs_to :user
+  belongs_to :house
+  before_create :add_house_id
   after_save :notify_housemates
+
+  def add_house_id
+    user = User.find(self.user_id)
+    self.house_id = user.house_id
+  end
 
   def notify_housemates
     user = User.find(self.user_id)
