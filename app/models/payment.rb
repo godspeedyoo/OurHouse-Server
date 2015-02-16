@@ -3,8 +3,6 @@ class Payment < ActiveRecord::Base
   after_create :add_house_id
 
   def add_house_id
-    user = User.find(self.user_id)
-    self.house_id = user.house_id
+    self.house_id = User.find(self.payer_id).id
   end
-
 end
