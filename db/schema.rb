@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20150214031500) do
     t.integer  "receiver_id"
     t.integer  "payer_id"
     t.integer  "amount"
+    t.integer  "house_id"
     t.string   "description"
     t.boolean  "fulfilled"
     t.datetime "created_at",  null: false
