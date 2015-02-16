@@ -1,7 +1,7 @@
 class UsersController < ApplicationController #SecuredController
 
   def index
-    render json: User.all
+    render json: User.where(house_id: current_user.house_id)
   end
 
   def show
