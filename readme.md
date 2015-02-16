@@ -4,7 +4,9 @@
 
 ## Users
 
-**get /users**
+**get /users**<br>
+Returns an array of all users **who are associated** with the current user/in the same house
+
 ```
     [{
     id: 1,
@@ -28,7 +30,9 @@
     }]
 ```
 
-**get /users/:id**
+**get /users/:id**<br>
+returns a user object
+
 ```
     {
     id: 1,
@@ -43,7 +47,8 @@
 ```
 
 **post /users** <br>
-returns created user, otherwise returns a 400 status + error message <br>
+create a user<br>
+Returns created user object, otherwise returns a 400 status + error message <br>
 **This needs to be implimented on the client/server so when a user logs in on the client it finds or creates the user**
 ```
     {
@@ -59,11 +64,11 @@ returns created user, otherwise returns a 400 status + error message <br>
 ```
 
 ## House
-
 **post /users/:id/houses** <br>
+Create a house <br>
 - Must include ```params[:house]```
   - ```"name" => 'DevBootCamp House'```
-returns created house, otherwise returns a 400 status + error message
+Returns created house object, otherwise returns a 400 status + error message
 ```
     {
     id: 1,
@@ -73,7 +78,8 @@ returns created house, otherwise returns a 400 status + error message
     }
 ```
 
-**get /users/:id/houses/:house_id**
+**get /users/:id/houses/:house_id**<br>
+Returns a house object
 ```
     {
     id: 1,
@@ -85,12 +91,14 @@ returns created house, otherwise returns a 400 status + error message
 ## Messages
 
 **post /users/:user_id/houses/:house_id/messages** <br>
+Create message(task, notif, activity)<br>
 - Must include ```params[:message]``` with
   - ```"type" => "Notif"``` or
   - ```"type" => "Task"``` or
   - ```"type" => "Activity"``` and
   - ```"content" => "Go out and by us beer!"```
-Route returns the object it created, otherwise it returns a 403 with an error
+Returns object it created, otherwise it returns a 403 with an error
+
 ```
     {
     id: 1,
@@ -103,7 +111,7 @@ Route returns the object it created, otherwise it returns a 403 with an error
 ```
 
 **get /users/:user_id/houses/:house_id/messages**<br>
-this route returns all messages for a user, along with the message's view<br>
+Returns an array of all messages for a user, along with the message's view<br>
 i.e. <br>
 ```message[0]``` is the message object <br>
 ```message[0].content``` == ```"clean shit up"```<br>
@@ -147,131 +155,62 @@ i.e. <br>
     }]
 ```
 
-## Messages_Users
-**/users/:user_id/houses/:house_id/messages_users
-    params[:type] // chores, task, notification
-    'post' /users/:user_id/houses/:house_id/messages
-    - expecting data in this format
-    	- {
-              message:
-                {
-                  message_type: "chore",
-                  content: "do the dishes"
-                }
-            }
-    - return data
-        - {
-            id: 4,
-            user_id: 1,
-            house_id: 1,
-            message_type: null,
-            content: "hi",
-            created_at: "2015-02-15T02:59:46.105Z",
-            updated_at: "2015-02-15T02:59:46.105Z"
-        }
-    - return data if it fails
-        - { message: 'Message not created' }, status: 403
+**get /users/:user_id/houses/:house_id/messages/:id**<br>
+Returns single message object<br>
+```
+    {
+    id: 1,
+    user_id: 1,
+    house_id: 1,
+    content: "clean shit up",
+    created_at: "2015-02-16T03:05:00.332Z",
+    updated_at: "2015-02-16T03:05:00.332Z"
+    }
+```
 
+## Payments
+**Post Payment**<br>
+It's complicated
 
-* Show message/task
-    'get' users/:id/houses/:house_id/messages
-    - return data
-    	- [
-            {
-            id: 5,
-            user_id: 1,
-            house_id: 1,
-            message_type: null,
-            content: "heyyy",
-            created_at: "2015-02-15T03:00:22.178Z",
-            updated_at: "2015-02-15T03:00:22.178Z"
-            }
-          ]
+**get /users/:user_id/houses/:house_id/payments**<br>
+returns an array of all payments **for the current user**, sent or received
+```
+    [{
+    id: 1,
+    receiver_id: 11,
+    payer_id: 7,
+    amount: 1,
+    house_id: 1,
+    description: "rent for dbc",
+    fulfilled: true,
+    created_at: "2015-02-16T03:05:21.810Z",
+    updated_at: "2015-02-16T03:05:21.810Z"
+    },
+    {
+    id: 2,
+    receiver_id: 7,
+    payer_id: 7,
+    amount: 5,
+    house_id: 1,
+    description: "requesting payment for food bills",
+    fulfilled: false,
+    created_at: "2015-02-16T03:05:21.816Z",
+    updated_at: "2015-02-16T03:05:21.816Z"
+    }]
+```
 
-* Edit message/task
-    params[:status] status defaults to "unread" //status will be "read", "delete" <-- User has deleted it from their view
-    'put' users/:id/houses/:house_id/message/:message_id
-    - return data
-    	-
-
-* Show Specific message
-    params[:type_id]
-    'get' users/:id/houses/:house_id/messages
-    - return data
-    	- {
-            "id": 2,
-            "user_id": 1,
-            "house_id": null,
-            "message_type": null,
-            "content": "hi",
-            "created_at": "2015-02-15T02:55:18.983Z",
-            "updated_at": "2015-02-15T02:55:18.983Z"
-        }
-
-***
-VENMO/PAYMENTS
-***
-
-* Create new payments
-    'post' users/:id/houses/:house_id/payments
-    - expecting data in this format
-        - {
-              payment:
-                {
-                  receiver_id: "1",
-                  payer_id: "2",
-                  amount: 6,
-                  description: "do the dishes",
-                  fulfilled: 1
-                }
-            }
-
-* Show all payments for your house
-    'get' users/:id/houses/:house_id/payments
-    - expecting data in this format
-    	- [
-            {
-                "id": 1,
-                "receiver_id": null,
-                "payer_id": null,
-                "amount": 6,
-                "description": null,
-                "fulfilled": null,
-                "created_at": "2015-02-15T05:03:46.228Z",
-                "updated_at": "2015-02-15T05:03:46.228Z"
-            },
-            {
-                "id": 2,
-                "receiver_id": null,
-                "payer_id": null,
-                "amount": 7,
-                "description": null,
-                "fulfilled": null,
-                "created_at": "2015-02-15T05:03:50.519Z",
-                "updated_at": "2015-02-15T05:03:50.519Z"
-            },
-            {
-                "id": 3,
-                "receiver_id": null,
-                "payer_id": null,
-                "amount": 8,
-                "description": null,
-                "fulfilled": null,
-                "created_at": "2015-02-15T05:03:52.233Z",
-                "updated_at": "2015-02-15T05:03:52.233Z"
-            }
-          ]
-
-* Show individual payments
-    'get' users/:id/houses/:house_id/payments/:payments_id
-    - return data
-    	- {
-            "id": 3,
-            "receiver_id": null,
-            "payer_id": null,
-            "amount": 8,
-            "description": null,
-            "fulfilled": null,
-            "created_at": "2015-02-15T05:03:52.233Z",
-            "updated_at": "2015-02-15T05:03:52.233Z"
-        }
+**get /users/:user_id/houses/:house_id/payments/:id** <br>
+Returns a single payment object
+```
+    {
+    id: 1,
+    receiver_id: 11,
+    payer_id: 7,
+    amount: 1,
+    house_id: 1,
+    description: "rent for dbc",
+    fulfilled: true,
+    created_at: "2015-02-16T03:05:21.810Z",
+    updated_at: "2015-02-16T03:05:21.810Z"
+    }
+```
