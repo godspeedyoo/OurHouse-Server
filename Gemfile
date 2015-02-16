@@ -11,6 +11,8 @@ gem 'pg'
 
 gem 'debugger'
 
+gem  'awesome_print'
+
 gem 'dotenv-rails', :groups => [:development, :test]
 
 gem 'jwt'

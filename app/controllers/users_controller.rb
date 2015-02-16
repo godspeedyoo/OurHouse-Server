@@ -1,11 +1,7 @@
-class UsersController < SecuredController
+class UsersController < ApplicationController #SecuredController
 
   def index
-    users = User.all
-    render json: users
-    # return render json: @user, status 200
-    # status codes are important
-    # write specific messages for errors
+    render json: User.all
   end
 
   def show

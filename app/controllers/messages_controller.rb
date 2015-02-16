@@ -1,23 +1,12 @@
-class MessagesController < SecuredController
-
-  def index
-    messages = Message.where(house_id: 1) #change to current user in production
-    render json: messages
-  end
-
-# /users/:user_id/houses/:house_id/messages/:id(.:format)
+class MessagesController < ApplicationController #SecuredController
 
   def show
-    message = Message.find(params[:id])
-    render json: message
+    render json: Message.find(params[:id])
   end
 
   def create
-    # assumes that client side is going to send
-    # the user_id and house_id inside params
-    # so there is no inference of ownership of user/house in back end
-    message = Message.new(params[:message])
-
+    message = Message.new(params[:message]) #must include type & content
+    message.update(user_id: current_user.id, house_id: current_user.house_id)
     if message.save
       render json: message
     else
