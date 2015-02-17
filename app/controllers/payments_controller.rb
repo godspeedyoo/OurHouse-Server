@@ -1,7 +1,9 @@
 class PaymentsController < SecuredController
 
   def index
-    payments = Payment.where("house_id = #{params[:house_id]} and payer_id = #{params[:user_id]} or receiver_id = #{params[:user_id]}")
+  	# gets payments for the current user where they are the receiver or sender of the payment 
+  	#     (i.e. don't let them see other housemates payments unless they are related to them)
+    payments = Payment.where("house_id = #{current_user.house_id} and payer_id = #{current_user.id} or receiver_id = #{current_user.id}")
     render json: payments
   end
 
