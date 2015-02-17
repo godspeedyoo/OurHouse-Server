@@ -10,7 +10,6 @@ class UsersController < SecuredController
   end
 
   def create
-    debugger
     user = User.find_or_create_by(google_id: users_google_id)
     user.update(email: params[:email], name: params[:name], first_name: params[:given_name], image: params[:picture]) if user
     render json: user
