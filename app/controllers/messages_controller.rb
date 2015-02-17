@@ -12,8 +12,8 @@ class MessagesController < SecuredController
   end
 
   def create
-    message = Message.new(params[:message]) #must include type & content
-    message.update(user_id: current_user.id, house_id: current_user.house_id)
+    message = Message.new(message_params) #must include type & content
+    message.update(user_id: params[:user_id], house_id: User.find(params[:user_id]).house_id)
     if message.save
       render json: message
     else
@@ -27,5 +27,9 @@ class MessagesController < SecuredController
   # def destroy
 
   # end
+  private
+  def message_params
+    params.require(:message).permit(:content, :type)
+  end
 
 end
