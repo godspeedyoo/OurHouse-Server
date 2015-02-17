@@ -11,6 +11,8 @@ gem 'pg'
 
 gem 'debugger'
 
+gem 'httparty'
+
 gem  'awesome_print'
 
 gem 'dotenv-rails', :groups => [:development, :test]

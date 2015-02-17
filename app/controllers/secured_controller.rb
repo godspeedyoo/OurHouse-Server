@@ -13,7 +13,6 @@ class SecuredController < ApplicationController
       token = request.headers['Authorization'].split(' ').last
       decoded_token = JWT.decode(token,
         JWT.base64url_decode(Rails.application.secrets.auth0_client_secret))
-      debugger
 
       raise InvalidTokenError if Rails.application.secrets.auth0_client_id != decoded_token[0]["aud"]
     rescue JWT::DecodeError, InvalidTokenError

@@ -1,4 +1,4 @@
-class MessagesController < ApplicationController #SecuredController
+class MessagesController < SecuredController
   # include /users/:user_id/houses/:house_id/messagesMessagesViewsHelper
   include MessagesViewsHelper
 

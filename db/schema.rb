@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20150214031500) do
     t.string   "email"
     t.integer  "house_id"
     t.string   "google_id"
+    t.string   "venmo_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
