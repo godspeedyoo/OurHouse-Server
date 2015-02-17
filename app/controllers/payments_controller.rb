@@ -9,8 +9,4 @@ class PaymentsController < SecuredController
     render json: Payment.find(params[:id])
   end
 
-  def create
-    #its complicated
-  end
-
 end
