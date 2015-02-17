@@ -13,11 +13,10 @@ class VenmoController < ApplicationController
   def create
     create_venmo_payment
     if payment_successful?
-      @payment = "It worked!"
+      render json: { message: "venmo payment worked friend!"}
     else
-      @payment = "ya fucked up!"
+      render json: { message: "Something went wrong...we've canceled this payment"}
     end
-    render json: { message: "venmo payment worked asshole"}
   end
 
 end

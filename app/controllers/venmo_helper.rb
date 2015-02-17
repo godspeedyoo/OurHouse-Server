@@ -1,6 +1,6 @@
 module VenmoHelper
   extend self
-  include HTTParty
+  require 'httparty'
 
   def venmo_auth_code
     @current_user = User.find_by(google_id: params[:state])
@@ -18,39 +18,35 @@ module VenmoHelper
 
   def capture_venmo_access_token
     response = JSON.parse(@venmo_response.to_json)
-    debugger
     @current_user.update(venmo_token: response["access_token"]) if response["access_token"]
   end
 
   def create_venmo_payment
-    url = "https://sandbox-api.venmo.com/v1/payments"
-    @venmo_payment_response =
-      HTTParty.post(url, :query => payment_params)
+    @venmo_payment_response = HTTParty.post("https://api.venmo.com/v1/payments", :query => payment_params)
     capture_payment_response
   end
 
   def capture_payment_response
     response = JSON.parse(@venmo_payment_response.to_json)["data"]
-    @payment = Payment.new(user_id: @current_user.id,
-                   payment_to: response["payment"]["target"]["user"]["id"],
+    status = true if response["payment"]["status"] == "settled" || response["payment"]["status"] == "pending"
+    @payment = Payment.new(payer_id: current_user.id,
+                   receiver_id: User.find_by(email: response["payment"]["target"]["email"]).id,
                    amount: response["payment"]["amount"].to_f,
-                   note: response["payment"]["note"],
-                   venmo_payment_id: response["payment"]["id"],
-                   venmo_payment_status: response["payment"]["status"]
+                   description: response["payment"]["note"],
+                   house_id: current_user.house_id,
+                   fulfilled: status
                    )
   end
 
   def payment_successful?
-    true if @payment.save && @payment.venmo_payment_status == "settled"
-    # @payment.save && @payment.venmo_payment_status == "settled"
-
+    true if (@payment.save && @payment.fulfilled == true)
   end
 
   def payment_params
-    {email: params[:receivers_email],
-     note: params[:payment_note],
-     amount: params[:payment_amount].to_f,
-     access_token: @current_user.venmo_access_token}
+    {email: params[:receiver_email],
+     note: params[:note],
+     amount: params[:amount].to_f,
+     access_token: current_user.venmo_token}
   end
 
 end

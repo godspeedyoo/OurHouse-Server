@@ -18,5 +18,5 @@ Activity.create(user_id: brian.id, content: "Come eat dinner with me at Chipotle
 Notif.create(user_id: brian.id, content: "My asshole friend is going to sleep on the couch, hope that's cool!")
 
 # PAYMENTS
-charles.payments.create(amount: 1, description: "rent for dbc", fulfilled: 1, house_id: 1, payer_id: charles.id, receiver_id: joe.id)
-joe.payments.create(amount: 10, description: "paying back borrowed cash", fulfilled: 1, house_id: 1, payer_id: joe.id, receiver_id: charles.id)
+charles.payments.create(amount: 1, description: "rent for dbc", fulfilled: true, house_id: 1, payer_id: charles.id, receiver_id: joe.id)
+joe.payments.create(amount: 10, description: "paying back borrowed cash", fulfilled: true, house_id: 1, payer_id: joe.id, receiver_id: charles.id)
