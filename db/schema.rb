@@ -56,10 +56,13 @@ ActiveRecord::Schema.define(version: 20150214031500) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
+    t.string   "first_name"
     t.string   "nickname"
     t.string   "image"
     t.string   "email"
     t.integer  "house_id"
+    t.string   "google_id"
+    t.string   "venmo_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

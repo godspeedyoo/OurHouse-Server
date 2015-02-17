@@ -1,7 +1,7 @@
-class UsersController < ApplicationController #SecuredController
+class UsersController < SecuredController
 
   def index
-    render json: User.where(house_id: User.find(params[:user_id]).house_id)
+    render json: User.where(house_id: current_user.house_id) if current_user
   end
 
   def show
@@ -10,7 +10,10 @@ class UsersController < ApplicationController #SecuredController
   end
 
   def create
-
+    debugger
+    user = User.find_or_create_by(google_id: users_google_id)
+    user.update(email: params[:email], name: params[:name], first_name: params[:given_name], image: params[:picture]) if user
+    render json: user
   end
 
   def update
