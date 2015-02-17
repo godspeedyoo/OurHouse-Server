@@ -3,7 +3,11 @@ class VenmoController < ApplicationController
 
   def index
     venmo_authorize
-    render json: { message: "hello from venmo index"}
+    if @current_user.venmo_token
+      render json: { message: "close me"}
+    else
+      render json: { message: "fucked up"}
+    end
   end
 
   def create
