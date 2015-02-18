@@ -3,6 +3,7 @@ module MessagesViewsHelper
 
   def message_views(messages, user)
     all_messages = []
+    debugger
     messages.each do |message|
       parsed_message = JSON.parse(message.to_json)
       message.messages_users.each do |view|
