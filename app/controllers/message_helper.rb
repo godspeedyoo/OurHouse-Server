@@ -8,7 +8,7 @@ module MessagesViewsHelper
       message.messages_users.each do |view|
         parsed_view = JSON.parse(view.to_json)
         parsed_view["user_id"] = current_user.id
-        message_user = MessagesUser.find_by(user_id: current_user.id, message_id: message.id).id
+        message_user = MessagesUser.find_by(user_id: current_user.id, message_id: message.id)
         parsed_view["id"] = message_user.id
         parsed_view["read"] = message_user.read
         parsed_view["removed"] = message_user.removed
