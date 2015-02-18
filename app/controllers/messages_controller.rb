@@ -3,8 +3,7 @@ class MessagesController < ApplicationController
   include MessagesViewsHelper
 
   def index
-    messages = Message.where(user_id: params[:user_id])
-    debugger
+    messages = Message.where(house_id: params[:house_id])
     render json: message_views(messages, User.find(params[:user_id]))
   end
 
