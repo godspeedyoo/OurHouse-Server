@@ -169,8 +169,11 @@ Returns single message object<br>
 ```
 
 ## Payments
+<<<<<<< HEAD
 **Post Payment**<br>
 It's complicated
+=======
+>>>>>>> a3ae1b51b78be22e9d5a3f1a3eb5292581945f98
 
 **get /users/:user_id/houses/:house_id/payments**<br>
 returns an array of all payments **for the current user**, sent or received
