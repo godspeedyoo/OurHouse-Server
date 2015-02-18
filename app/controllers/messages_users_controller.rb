@@ -11,9 +11,3 @@ class MessagesUsersController < SecuredController
   end
 
 end
-
-
-__END__
-message id: 1
-user viewing: 2
-message view id: 2
