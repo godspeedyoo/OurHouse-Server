@@ -1,7 +1,6 @@
 class MessagesUsersController < SecuredController
 
   def update
-    debugger
     messages_users = MessagesUser.find_by(id: params[:id], user_id: current_user.id)
     messages_users.update(view_params)
   end
