@@ -3,7 +3,7 @@ module VenmoHelper
   require 'httparty'
 
   def venmo_auth_code
-    @current_user = User.find_by(google_id: params[:state])
+    @current_user = User.find(params[:state])
     return params[:code] if params[:code]
   end
 
