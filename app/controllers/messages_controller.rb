@@ -1,23 +1,18 @@
-class MessagesController < ApplicationController
+class MessagesController < SecuredController
+  include MessagesViewsHelper
 
   def index
-    messages = Message.where(house_id: 1) #change to current user in production
-    render json: messages
+    messages = Message.where(house_id: current_user.house_id)
+    render json: message_views(messages, current_user)
   end
 
-# /users/:user_id/houses/:house_id/messages/:id(.:format)
-
   def show
-    message = Message.find(params[:id])
-    render json: message
+    render json: Message.find(params[:id])
   end
 
   def create
-    # assumes that client side is going to send
-    # the user_id and house_id inside params
-    # so there is no inference of ownership of user/house in back end
-    message = Message.new(params[:message])
-
+    message = Message.new(message_params) #must include type & content
+    message.update(user_id: current_user.id, house_id: current_user.house_id)
     if message.save
       render json: message
     else
@@ -25,11 +20,10 @@ class MessagesController < ApplicationController
     end
   end
 
-  # def update
-  # end
 
-  # def destroy
-
-  # end
+  private
+  def message_params
+    params.require(:message).permit(:content, :type)
+  end
 
 end

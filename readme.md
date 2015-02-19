@@ -63,6 +63,7 @@ Returns created user object, otherwise returns a 400 status + error message <br>
     }
 ```
 
+<<<<<<< HEAD
 ## Houses
 **post /users/:id/houses** <br>
 Create a house <br>

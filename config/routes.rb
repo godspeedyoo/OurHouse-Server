@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  mount_devise_token_auth_for 'User', at: 'auth'
+  get 'ping' => 'ping#ping'
+  get 'secured/ping' => 'secured_ping#ping'
+
+
+  resources :venmo, only: [:index, :create]
+
 
   resources :users do
     resources :houses do

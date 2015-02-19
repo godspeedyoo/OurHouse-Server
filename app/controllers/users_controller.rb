@@ -1,11 +1,7 @@
-class UsersController < ApplicationController
+class UsersController < SecuredController
 
   def index
-    users = User.all
-    render json: users
-    # return render json: @user, status 200
-    # status codes are important
-    # write specific messages for errors
+    render json: User.where(house_id: current_user.house_id) if current_user
   end
 
   def show
@@ -14,7 +10,9 @@ class UsersController < ApplicationController
   end
 
   def create
-
+    user = User.find_or_create_by(google_id: users_google_id)
+    user.update(email: params[:email], name: params[:name], first_name: params[:given_name], image: params[:picture]) if user
+    render json: user
   end
 
   def update

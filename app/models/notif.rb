@@ -1,0 +1,2 @@
+class Notif < Message
+end

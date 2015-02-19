@@ -1,4 +1,4 @@
-class HousesController < ApplicationController
+class HousesController < SecuredController
 
   def index
     # houses = House.all
@@ -6,15 +6,13 @@ class HousesController < ApplicationController
   end
 
   def show
-    house = House.find_by(id: 1) #Change '1' to current_user.house_id in production
-    render json: house
+    render json: House.find(params[:id])
   end
 
   def create
-    house = House.new(name: params[:name])
-
+    house = House.new(house_params)
     if house.save
-      current_user.update(house_id: house.id) #will only work when auth/current user is working
+      User.find(params[:user_id]).update(house_id: house.id)
       render json: house
     else
       render json: {message: 'House not created'}, status: 403
@@ -31,4 +29,8 @@ class HousesController < ApplicationController
 
   end
 
+  private
+  def house_params
+    params.require(:house).permit(:name)
+  end
 end
