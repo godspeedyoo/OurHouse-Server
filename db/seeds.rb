@@ -42,14 +42,19 @@ joe = User.create(:name => "Joseph Won",
                :house_id => 1,
               :google_id => "google-oauth2|102015291212688963375")
 
-ass = User.create(name: "Asshole", house_id: house2.id)
+lazy = User.create(name: "Lazy Bum", house_id: house2.id)
 
 # MESSAGES
-Task.create(user_id: charles.id, content: "clean shit up")
+Task.create(user_id: charles.id, content: "clean up living room")
+Notif.create(user_id: joe.id, content: "I had the Chipotle dream again...")
+Activity.create(user_id: anthony.id, content: "Job fair Saturday, anyone interested?")
 Task.create(user_id: charles.id, content: "cook food")
-
 Activity.create(user_id: brian.id, content: "Come eat dinner with me at Chipotle!")
-Notif.create(user_id: brian.id, content: "My asshole friend is going to sleep on the couch, hope that's cool!")
+Task.create(user_id: joe.id, content: "Someone pickup my denim track suit")
+Notif.create(user_id: brian.id, content: "My lazy friend is going to sleep on the couch, hope that's cool!")
+Notif.create(user_id: ali.id, content: "Not the housemate you deserve, but the one you need right now!")
+Notif.create(user_id: ali.id, content: "SWEAR TO ME!!!")
+
 
 # PAYMENTS
 charles.payments.create(amount: 1, description: "rent for dbc", fulfilled: true, house_id: 1, payer_id: charles.id, receiver_id: joe.id)
