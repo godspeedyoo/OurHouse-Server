@@ -3,7 +3,7 @@ class MessagesController < SecuredController
 
   def index
     messages = Message.where(house_id: current_user.house_id)
-    render json: message_views(messages, current_user)
+    render json: message_views(messages, current_user).reverse
   end
 
   def show
